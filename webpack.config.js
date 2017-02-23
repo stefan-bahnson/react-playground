@@ -1,16 +1,17 @@
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-  entry: './index.js',
+  entry: __dirname + '/index.js',
   output: {
-    path: '/public',
+    path: __dirname + '/public',
     filename: 'bundle.js',
     publicPath: '/'
   },
   devServer: {
     inline: true,
     port: 3000,
-    contentBase: './public'
+    contentBase: __dirname + '/public'
   },
   module: {
     loaders: [
@@ -36,6 +37,12 @@ module.exports = {
     ]
   },
   plugins: [
-    new ExtractTextPlugin('style.css')
+    new ExtractTextPlugin('style.css'),
+    new CopyWebpackPlugin([
+      {
+        from: 'index.html',
+        to: 'index.html'
+      }
+    ])
   ]
 };
